@@ -1,5 +1,5 @@
 "use client"
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ProductCard from "./ProductCard";
 import styles from "./ProductGrid.module.css";
 import smallData from '@/src/mock/small/products.json';
@@ -12,9 +12,15 @@ export default function ProductGrid() {
     const category = [...new Set(smallData.map(product => product.category))];
     console.log("categories", category);
 
+  useEffect(() => {
+  if (smallData.length > 0) {
+    setSelectedCategory(smallData[0].category);
+  }
+}, [smallData]);
+
     const filteredProducts = selectedCategory
-    ? smallData.filter(p => p.category === selectedCategory)
-    : [];
+        ? smallData.filter(p => p.category === selectedCategory)
+        : [];
 
     return (
         <section className={styles.gridSection}>
@@ -24,28 +30,51 @@ export default function ProductGrid() {
             </div>
             <div className={styles.sectiontwo}>
                 {category.map(cat => (
-                    <button key={cat} className={styles.category} onClick={() => setSelectedCategory(cat)}>
+                    <button key={cat} className={`${styles.category} ${selectedCategory === cat ? styles.active : ''
+                        }`} onClick={() => setSelectedCategory(cat)}>
                         {cat}
                     </button>
                 ))}
             </div>
             <div className={styles.grid}>
-                     {selectedCategory && (
-        <div>
-          <h2>Products in "{selectedCategory}"</h2>
-          {filteredProducts.length === 0 && <p>No products available.</p>}
-          <ul style={{ listStyle: 'none', padding: 0 }}>
-            {filteredProducts.map(product => (
-              <li key={product.id} style={{ marginBottom: '15px', borderBottom: '1px solid #ddd', paddingBottom: '10px' }}>
-                <h3>{product.name}</h3>
-                <h4>category - {product.category}</h4>
-                <p>{product.description}</p>
-                <p><strong>Price:</strong> ${product.price}</p>
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
+                {selectedCategory && (
+                    <div>
+                        <b>Products in "{selectedCategory}"</b>
+                        <div className={styles.gridone}>
+                            {filteredProducts.length === 0 && <p>No products available.</p>}
+
+                            <ul
+                                style={{
+                                    listStyle: 'none',
+                                    padding: '10px',
+                                    display: 'flex',
+                                    flexWrap: 'wrap',        
+                                    justifyContent: 'center',
+                                    gap: '20px',
+                                }}
+                            >
+                                {filteredProducts.map(product => (
+                                    <li
+                                        key={product.id}
+                                        style={{
+                                            border: '1px solid #ddd',
+                                            padding: '15px',
+                                            width: '280px',         // ✅ card width
+                                            height: 'auto',
+                                            borderRadius: '8px',
+                                            boxShadow: '0 2px 6px rgba(0,0,0,0.1)',
+                                        }}
+                                    >
+                                        <h3>{product.name}</h3>
+                                        <h4>Category - {product.category}</h4>
+                                        <p>{product.description}</p>
+                                        <p><strong>Price:</strong> ${product.price}</p>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    </div>
+                )}
             </div>
         </section>
     );

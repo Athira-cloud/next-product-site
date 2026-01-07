@@ -1,10 +1,18 @@
 .grid {
     display: flex;
-    margin: 0 auto;
-    width: 1000px;
+    margin: 10px ;
     height: 500px;
-    justify-content: space-around;
     flex-wrap: wrap;
+}
+.active {
+  background-color: #2563eb;
+  color: #ffffff;
+  border-color: #2563eb;
+}
+.gridone {
+    display: flex;
+    flex-direction: column;
+
 }
 
 .container {
@@ -50,6 +58,10 @@
      border: none;
      cursor: pointer;
      font-weight: 800;
+}
+.category:hover {
+  background-color: #f1f5f9;
+  color: black;
 }
 .sectiontwo{
     display: flex;
