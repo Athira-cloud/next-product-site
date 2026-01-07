@@ -3,6 +3,9 @@ import { useEffect, useState } from "react";
 import ProductCard from "./ProductCard";
 import styles from "./ProductGrid.module.css";
 import smallData from '@/src/mock/small/products.json';
+import { useRouter } from "next/navigation";
+
+
 
 /* General products for a beginner-friendly online store */
 
@@ -11,6 +14,7 @@ export default function ProductGrid() {
     const [selectedCategory, setSelectedCategory] = useState("");
     const category = [...new Set(smallData.map(product => product.category))];
     console.log("categories", category);
+    const router = useRouter();
 
   useEffect(() => {
   if (smallData.length > 0) {
@@ -43,27 +47,13 @@ export default function ProductGrid() {
                         <div className={styles.gridone}>
                             {filteredProducts.length === 0 && <p>No products available.</p>}
 
-                            <ul
-                                style={{
-                                    listStyle: 'none',
-                                    padding: '10px',
-                                    display: 'flex',
-                                    flexWrap: 'wrap',        
-                                    justifyContent: 'center',
-                                    gap: '20px',
-                                }}
-                            >
+                            <ul className={styles.ulstyle}>
                                 {filteredProducts.map(product => (
+                                    
                                     <li
                                         key={product.id}
-                                        style={{
-                                            border: '1px solid #ddd',
-                                            padding: '15px',
-                                            width: '280px',         // ✅ card width
-                                            height: 'auto',
-                                            borderRadius: '8px',
-                                            boxShadow: '0 2px 6px rgba(0,0,0,0.1)',
-                                        }}
+                                       className={styles.listyle}
+                                        onClick={() => router.push(`/catalog/${product.id}`)}
                                     >
                                         <h3>{product.name}</h3>
                                         <h4>Category - {product.category}</h4>
