@@ -6,12 +6,18 @@ import { use } from "react";
 import { RootState, AppDispatch } from "../../store/store";
 import { addToCart } from "../../store/cartSlice";
 import { addToWishlist } from "../../store/wishlistSlice";
+import { useRouter } from "next/navigation";
+
+
 
 
 export default function ProductPage({ params }: { params: Promise<{ productId: string }> }) {
   const { productId } = use(params);
   const products = useSelector((state: RootState) => state.products.items);
   const product = products.find((p) => p.id === productId);
+  const [added, setAdded] = useState(false);
+  const router = useRouter();
+
   const wishlistItems = useSelector(
   (state: RootState) => state.wishlist.items
 );
@@ -31,6 +37,7 @@ const isInWishlist = wishlistItems.some(i => i.id === productId);
         quantity,
       })
     );
+    setAdded(true);
     alert(`${product.name} added to cart!`);
   };
 
@@ -49,14 +56,16 @@ const isInWishlist = wishlistItems.some(i => i.id === productId);
             type="number"
             value={quantity}
             min={1}
-            onChange={(e) => setQuantity(Number(e.target.value))}
+            max={product.countInStock}
+            onChange={(e) => {
+              const val = Number(e.target.value);
+              setQuantity(val > product.countInStock ? product.countInStock : val);
+            }}
           />
         </label>
       </div>
-      <button className={styles.button} onClick={handleAddToCart}>ADD TO CART</button>
-      <button className={styles.button}
-        onClick={() =>
-          dispatch(
+      <button className={styles.button} onClick={handleAddToCart}>{added ? "Added to Cart" : "ADD TO CART"}</button>
+      <button className={styles.button} onClick={() =>dispatch(
             addToWishlist({
               id: product.id,
               name: product.name,
@@ -68,6 +77,9 @@ const isInWishlist = wishlistItems.some(i => i.id === productId);
       >
         {isInWishlist ? "In Wishlist ❤️" : "Add to Wishlist 🤍"}
       </button>
+      <button className={styles.continueBtn} onClick={() => router.push("/catalog")}>
+  Continue Shopping
+</button>
     </div>
   );
 }

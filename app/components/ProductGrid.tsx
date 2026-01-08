@@ -2,29 +2,43 @@
 import { useEffect, useState } from "react";
 import ProductCard from "./ProductCard";
 import styles from "./ProductGrid.module.css";
-import smallData from '@/src/mock/small/products.json';
 import { useRouter } from "next/navigation";
+import products from "../store/productsSlice";
+import { useSelector, useDispatch } from "react-redux";
+import { RootState, AppDispatch } from "../store/store";
+import { forwardRef } from "react";
 
 
 
 /* General products for a beginner-friendly online store */
 
-export default function ProductGrid() {
-    console.log("smallData ", smallData);
+const ProductGrid = forwardRef<HTMLDivElement>((props, ref) => {
+    const data = useSelector((state: RootState) => state.products.items);
+    console.log("data in grid ", data);
     const [selectedCategory, setSelectedCategory] = useState("");
-    const category = [...new Set(smallData.map(product => product.category))];
+    const category = [...new Set(data.map(product => product.category))];
     console.log("categories", category);
     const router = useRouter();
+    const [searchTerm, setSearchTerm] = useState("");
+
 
   useEffect(() => {
-  if (smallData.length > 0) {
-    setSelectedCategory(smallData[0].category);
+  if (data.length > 0) {
+    setSelectedCategory(data[0].category);
   }
-}, [smallData]);
+}, [data]);
 
-    const filteredProducts = selectedCategory
-        ? smallData.filter(p => p.category === selectedCategory)
-        : [];
+    // const filteredProducts = selectedCategory
+    //     ? data.filter(p => p.category === selectedCategory)
+    //     : [];
+
+const filteredProducts = searchTerm
+  ? data.filter((p) =>
+      p.name.toLowerCase().includes(searchTerm.toLowerCase())
+    )
+  : selectedCategory
+  ? data.filter((p) => p.category === selectedCategory)
+  : data;
 
     return (
         <section className={styles.gridSection}>
@@ -32,9 +46,18 @@ export default function ProductGrid() {
                 <h2 className={styles.heading}>Unlock Exclusive Savings!</h2>
                 <p>Select your favorite category and enjoy shopping..</p>
             </div>
-            <div className={styles.sectiontwo}>
+                    <div className={styles.searchContainer}>
+          <input
+            type="text"
+            placeholder="Search products..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className={styles.searchInput}
+          />
+        </div>
+            <div className={styles.sectiontwo} ref={ref}>
                 {category.map(cat => (
-                    <button key={cat} className={`${styles.category} ${selectedCategory === cat ? styles.active : ''
+                    <button key={cat} className={`${styles.category} ${!searchTerm && selectedCategory === cat ? styles.active : ''
                         }`} onClick={() => setSelectedCategory(cat)}>
                         {cat}
                     </button>
@@ -43,7 +66,7 @@ export default function ProductGrid() {
             <div className={styles.grid}>
                 {selectedCategory && (
                     <div>
-                        <b>Products in "{selectedCategory}"</b>
+                        {/* <b>Products in "{selectedCategory}"</b> */}
                         <div className={styles.gridone}>
                             {filteredProducts.length === 0 && <p>No products available.</p>}
 
@@ -69,3 +92,5 @@ export default function ProductGrid() {
         </section>
     );
 }
+)
+export default ProductGrid;
