@@ -2,7 +2,7 @@
 
 import { useSelector, useDispatch } from "react-redux";
 import { RootState, AppDispatch } from "../store/store";
-import { removeFromCart, clearCart } from "../store/cartSlice";
+import { removeFromCart, clearCart, updateQuantity } from "../store/cartSlice";
 import styles from "./page.module.css";
 import Link from "next/link";
 
@@ -14,6 +14,17 @@ export default function CartPage() {
     (acc, item) => acc + item.price * item.quantity,
     0
   );
+
+
+  const increment = (id: string, currentQty: number) => {
+    dispatch(updateQuantity({ id, quantity: currentQty + 1 }));
+  };
+
+  const decrement = (id: string, currentQty: number) => {
+    if (currentQty > 1) {
+      dispatch(updateQuantity({ id, quantity: currentQty - 1 }));
+    }
+  };
 
   if (cartItems.length === 0) {
     return (
@@ -40,7 +51,33 @@ export default function CartPage() {
         <div key={item.id} className={styles.row}>
           <span className={styles.name}>{item.name}</span>
           <span>${item.price}</span>
-          <span>{item.quantity}</span>
+          <span className={styles.quantityt}>
+            <div className={styles.qtyContainer}>
+              <button
+                className={styles.qtyBtn}
+                onClick={() => decrement(item.id, item.quantity)}
+              >
+                -
+              </button>
+
+              <input
+                type="number"
+                value={item.quantity}
+                min={1}
+                readOnly
+                className={styles.qtyInput}
+              />
+
+              <button
+                className={styles.qtyBtn}
+                onClick={() => increment(item.id, item.quantity)}
+              >
+                +
+              </button>
+            </div>
+          </span>
+
+
           <button
             className={styles.removeBtn}
             onClick={() => dispatch(removeFromCart(item.id))}

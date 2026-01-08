@@ -26,6 +26,8 @@ export default function CheckoutPage() {
     0
   );
 
+  const [paymentMethod, setPaymentMethod] = useState("creditCard");
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
@@ -98,6 +100,31 @@ export default function CheckoutPage() {
             value={form.postalCode}
             onChange={handleChange}
           />
+          <div className={styles.payment}>
+            <h2>Payment Method</h2>
+
+            <label className={styles.paymentOption}>
+              <input
+                type="radio"
+                name="payment"
+                value="creditCard"
+                checked={paymentMethod === "creditCard"}
+                onChange={(e) => setPaymentMethod(e.target.value)}
+              />
+              Credit Card
+            </label>
+
+            <label className={styles.paymentOption}>
+              <input
+                type="radio"
+                name="payment"
+                value="paypal"
+                checked={paymentMethod === "paypal"}
+                onChange={(e) => setPaymentMethod(e.target.value)}
+              />
+              PayPal
+            </label>
+          </div>
         </div>
 
         {/* Order Summary */}

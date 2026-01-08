@@ -8,7 +8,7 @@
 }
 
 .button {
-  background-color: #6E026F;
+  background-color: #3BC1A8;
   color: #fff;
   border: none;
   padding: 16px 32px;
@@ -33,4 +33,28 @@
   border-radius: 5px;
   cursor: pointer;
   margin-top: 15px;
+}
+
+@media (max-width: 768px) {
+  .container {
+    width: 100%;
+    height: auto;
+    margin: 0;
+    padding: 20px;
+    border-radius: 0;
+    padding: 20px;
+  }
+
+  .detailscontainer {
+    font-size: 18px;
+    text-align: center;
+  }
+
+  .button,
+  .continueBtn {
+    width: 100%;
+    margin: 12px 0;
+    padding: 14px;
+    font-size: 15px;
+  }
 }

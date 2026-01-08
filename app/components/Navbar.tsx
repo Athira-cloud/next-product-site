@@ -27,13 +27,10 @@ export default function Navbar() {
       <nav className={styles.nav}>
         <Link href="/">Home</Link>
         <Link href="/about">About</Link>
-        <Link href="/services">Services</Link>
-        <Link href="/catalog">Shop</Link>
         <Link href="/contact">Contact</Link>
       </nav>
 
       <div className={styles.actions}>
-        <span>🔍</span>
         <Link href="/wishlist">
            🤍
           {wishlistCount > 0 && <span> ({wishlistCount})</span>}
