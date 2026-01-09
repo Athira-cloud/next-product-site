@@ -19,6 +19,7 @@ export default function CheckoutPage() {
     address: "",
     city: "",
     postalCode: "",
+    payement: ""
   });
 
   const total = cartItems.reduce(
@@ -26,13 +27,25 @@ export default function CheckoutPage() {
     0
   );
 
-  const [paymentMethod, setPaymentMethod] = useState("creditCard");
+  const [paymentMethod, setPaymentMethod] = useState("");
+  const [loading, setLoading] = useState(false);
+
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
+  const mockStripePayment = () => {
+    setLoading(true);
 
+    setTimeout(() => {
+      alert("Payment successful  (Mock Stripe)");
+      dispatch(clearCart());
+      router.push("/catalog");
+      setLoading(false);
+    }, 1500);
+  };
   const placeOrder = () => {
+
     if (
       !form.name ||
       !form.email ||
@@ -44,6 +57,15 @@ export default function CheckoutPage() {
       return;
     }
 
+    if (paymentMethod === "stripe") {
+      mockStripePayment();
+      return;
+    }
+
+    if (!paymentMethod) {
+      alert("Please select the payement option")
+      return;
+    }
     alert("Order placed successfully!");
     dispatch(clearCart());
     router.push("/catalog");
@@ -100,6 +122,7 @@ export default function CheckoutPage() {
             value={form.postalCode}
             onChange={handleChange}
           />
+
           <div className={styles.payment}>
             <h2>Payment Method</h2>
 
@@ -123,6 +146,17 @@ export default function CheckoutPage() {
                 onChange={(e) => setPaymentMethod(e.target.value)}
               />
               PayPal
+            </label>
+
+            <label className={styles.paymentOption}>
+              <input
+                type="radio"
+                name="payment"
+                value="stripe"
+                checked={paymentMethod === "stripe"}
+                onChange={(e) => setPaymentMethod(e.target.value)}
+              />
+              Pay with Stripe
             </label>
           </div>
         </div>

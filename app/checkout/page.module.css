@@ -86,6 +86,7 @@
   border-radius: 8px;
   background-color: #f9f9f9;
   width: 100%;
+  display: flex;
 }
 .payment label{
   width: 100%;
@@ -110,4 +111,75 @@
   transform: scale(1.1);
   cursor: pointer;
   align-items: center;
+}
+
+@media (max-width: 1024px) {
+  .container {
+    padding: 15px;
+    height: auto;
+  }
+
+  .checkoutGrid {
+    gap: 20px;
+  }
+}
+
+
+@media (max-width: 768px) {
+  .checkoutGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .checkoutbtn {
+    margin-left: 0;
+    margin-top: 10px;
+  }
+
+  .formSection,
+  .summarySection {
+    padding: 15px;
+  }
+
+  .heading {
+    text-align: center;
+  }
+
+  .total {
+    font-size: 16px;
+  }
+}
+
+
+@media (max-width: 480px) {
+  .container {
+    padding: 10px;
+  }
+
+  .formSection h2,
+  .summarySection h2,
+  .payment h2 {
+    font-size: 16px;
+  }
+
+  .formSection input {
+    padding: 8px;
+    font-size: 14px;
+  }
+
+  .placeOrderBtn,
+  .checkoutbtn {
+    padding: 10px;
+    font-size: 14px;
+  }
+
+  .paymentOption {
+    flex-direction: row;
+    align-items: center;
+    font-size: 14px;
+  }
+
+  .summaryItem,
+  .total {
+    font-size: 14px;
+  }
 }

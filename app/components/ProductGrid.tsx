@@ -46,7 +46,7 @@ const filteredProducts = searchTerm
                 <h2 className={styles.heading}>Unlock Exclusive Savings!</h2>
                 <p>Select your favorite category and enjoy shopping..</p>
             </div>
-                    <div className={styles.searchContainer}>
+        <div className={styles.searchContainer}>
           <input
             type="text"
             placeholder="Search products..."

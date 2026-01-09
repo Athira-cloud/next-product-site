@@ -185,3 +185,58 @@
     text-align: center;
   }
 }
+
+
+@media (max-width: 480px) {
+  .container {
+    padding: 8px;
+  }
+
+  .heading {
+    font-size: 18px;
+  }
+
+  .row {
+    padding: 12px;
+    gap: 8px;
+  }
+
+  .name {
+    font-size: 15px;
+  }
+
+  .price,
+  .subtotal {
+    font-size: 14px;
+  }
+
+  .quantityt {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+
+  .qtyContainer {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .removeBtn {
+    font-size: 14px;
+    padding: 8px;
+  }
+
+  .clearBtn,
+  .checkoutbtn {
+    padding: 10px;
+    font-size: 15px;
+    display: block;
+    width: 100%;
+    text-align: center;
+  }
+
+  .totalSection {
+    font-size: 16px;
+    gap: 6px;
+  }
+}
