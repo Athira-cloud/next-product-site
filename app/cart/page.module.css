@@ -80,11 +80,10 @@
   cursor: pointer;
   border-radius: 4px;
   margin-left: 25px;
-
 }
-.quantityt{
+.quantityt {
   display: flex;
-  gap:1px;
+  gap: 1px;
 }
 
 .quantityt {
@@ -96,7 +95,7 @@
 .qtyContainer {
   display: flex;
   align-items: center;
-  gap: 5px; 
+  gap: 5px;
   margin-left: -35px;
 }
 
@@ -136,12 +135,9 @@
     text-align: center;
   }
 
-  /* Hide table header */
   .tableHeader {
     display: none;
   }
-
-  /* Stack cart row */
   .row {
     grid-template-columns: 1fr;
     gap: 10px;
@@ -185,7 +181,6 @@
     text-align: center;
   }
 }
-
 
 @media (max-width: 480px) {
   .container {

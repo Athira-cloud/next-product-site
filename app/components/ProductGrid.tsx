@@ -8,10 +8,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { RootState, AppDispatch } from "../store/store";
 import { forwardRef } from "react";
 
-
-
-/* General products for a beginner-friendly online store */
-
 const ProductGrid = forwardRef<HTMLDivElement>((props, ref) => {
     const data = useSelector((state: RootState) => state.products.items);
     console.log("data in grid ", data);
@@ -27,10 +23,6 @@ const ProductGrid = forwardRef<HTMLDivElement>((props, ref) => {
     setSelectedCategory(data[0].category);
   }
 }, [data]);
-
-    // const filteredProducts = selectedCategory
-    //     ? data.filter(p => p.category === selectedCategory)
-    //     : [];
 
 const filteredProducts = searchTerm
   ? data.filter((p) =>
@@ -66,7 +58,6 @@ const filteredProducts = searchTerm
             <div className={styles.grid}>
                 {selectedCategory && (
                     <div>
-                        {/* <b>Products in "{selectedCategory}"</b> */}
                         <div className={styles.gridone}>
                             {filteredProducts.length === 0 && <p>No products available.</p>}
 
