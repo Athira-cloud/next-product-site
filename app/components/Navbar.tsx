@@ -2,7 +2,7 @@
 import Link from "next/link";
 import styles from "./Navbar.module.css";
 import { useSelector } from "react-redux";
-import { RootState } from "../store/store";
+import { RootState } from "../../store/store";
 
 
 export default function Navbar() {

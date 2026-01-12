@@ -3,9 +3,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import styles from "./page.module.css";
 import { use } from "react";
-import { RootState, AppDispatch } from "../../store/store";
-import { addToCart } from "../../store/cartSlice";
-import { addToWishlist } from "../../store/wishlistSlice";
+import { RootState, AppDispatch } from "../../../store/store";
+import { addToCart } from "../../../store/cartSlice";
+import { addToWishlist } from "../../../store/wishlistSlice";
 import { useRouter } from "next/navigation";
 
 

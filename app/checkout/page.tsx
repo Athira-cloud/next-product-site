@@ -2,8 +2,8 @@
 
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { RootState, AppDispatch } from "../store/store";
-import { clearCart } from "../store/cartSlice";
+import { RootState, AppDispatch } from "../../store/store";
+import { clearCart } from "../../store/cartSlice";
 import { useRouter } from "next/navigation";
 import styles from "./page.module.css";
 import Navbar from "../components/Navbar";
@@ -56,6 +56,10 @@ export default function CheckoutPage() {
       alert("Please fill all fields");
       return;
     }
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!regex.test(form.email)) {
+      alert("Please enter a valid email address");
+    } 
 
     if (paymentMethod === "stripe") {
       mockStripePayment();

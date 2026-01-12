@@ -3,9 +3,9 @@ import { useEffect, useState } from "react";
 import ProductCard from "./ProductCard";
 import styles from "./ProductGrid.module.css";
 import { useRouter } from "next/navigation";
-import products from "../store/productsSlice";
+import products from "../../store/productsSlice";
 import { useSelector, useDispatch } from "react-redux";
-import { RootState, AppDispatch } from "../store/store";
+import { RootState, AppDispatch } from "../../store/store";
 import { forwardRef } from "react";
 
 const ProductGrid = forwardRef<HTMLDivElement>((props, ref) => {

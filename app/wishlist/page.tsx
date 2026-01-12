@@ -1,8 +1,8 @@
 "use client";
 
 import { useSelector, useDispatch } from "react-redux";
-import { RootState, AppDispatch } from "../store/store";
-import { removeFromWishlist } from "../store/wishlistSlice";
+import { RootState, AppDispatch } from "../../store/store";
+import { removeFromWishlist } from "../../store/wishlistSlice";
 import Navbar from "../components/Navbar";
 import Link from "next/link";
 import styles from "./page.module.css";
