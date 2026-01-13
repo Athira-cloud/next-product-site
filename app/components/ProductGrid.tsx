@@ -84,4 +84,5 @@ const filteredProducts = searchTerm
     );
 }
 )
+ProductGrid.displayName = "ProductGrid";
 export default ProductGrid;
